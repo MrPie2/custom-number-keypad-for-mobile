@@ -63,7 +63,16 @@ $('.pin').keyup(function(){
     for(var i=1; i<10; i++){
        $('.keypads').append("<li class='singlekey' style='color: white' id='"+i+"'><span>"+i+"</span></li>");
     }
-$(document).on('click','.singlekey', function(){
+
+
+$(document).on('click', 'singlekey', function(){
 var number=$(this).attr('id');
-$('.pin').val(number);
+
+if($('#pin1').val().trim()==""){
+alert('i am blank');
+}else{
+
+
+}
+
 })

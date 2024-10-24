@@ -21,7 +21,7 @@
         text-align: center;
         font-size: 30pt;
         background: #333;
-        color: white;
+        color: 333;
         border: 1px solid #0d6efd;;
         
     }
@@ -40,10 +40,10 @@
     margin: 0 auto;
     background: red;
     left: 0; right: 0;
-    width: 280px;
+    width: 300px;
 }
     .singlekey{
-        padding: 10px;
+        padding: 15px;
         float: left;
         list-style: none;
         justify-content: center;
@@ -69,7 +69,7 @@
         <h1 style="color: white">Create Pin</h1>
 
         <table >
-            <tr><td><input type="number" class="form-control pin" id="pin1"  placeholder="" /></td><td><input type="number" class="form-control pin"  id="pin2"   placeholder="" disabled/></td><td><input type="number" class="form-control pin" id="pin3"  placeholder="" disabled/></td><td><input type="number" class="form-control pin" id="pin4"   placeholder="" disabled/></td></tr>
+            <tr><td><input type="number" class="form-control pin" id="pin1"  placeholder="" readonly/></td><td><input type="number" class="form-control pin"  id="pin2"   placeholder="" disabled readonly/></td><td><input type="number" class="form-control pin" id="pin3"  placeholder="" disabled readonly/></td><td><input type="number" class="form-control pin" id="pin4"   placeholder="" disabled readonly/></td></tr>
         </table>
         <div class="form-group spi"style="padding: 30px"></div>
 
@@ -79,7 +79,7 @@
         <h1 style="color: white">Confirm Pin</h1>
       
         <table>
-            <tr><td><input type="number" class="form-control pin" id="pin5" placeholder=""/></td><td><input type="number" class="form-control pin"  id="pin6" placeholder="" disabled/></td><td><input type="number" class="form-control pin" id="pin7" placeholder="" disabled/></td><td><input type="number" class="form-control pin" id="pin8" placeholder="" disabled/></td></tr>
+            <tr><td><input type="number" class="form-control pin" id="pin5" placeholder="" readonly/></td><td><input type="number" class="form-control pin"  id="pin6" placeholder="" disabled readonly/></td><td><input type="number" class="form-control pin" id="pin7" placeholder="" disabled readonly/></td><td><input type="number" class="form-control pin" id="pin8" placeholder="" disabled readonly/></td></tr>
         </table>
 
     
@@ -94,4 +94,96 @@
 
 </div>
 
-<script src="scripts/scripts.js"></script>
+<script>
+
+var current=1;
+var next=current+1;
+$(document).keyup(function(event){
+    if(event.keyCode==8){
+        $('.pin').prev().focus()
+    }
+
+})
+
+var current=0;
+
+$('.pin').keyup(function(){
+    current++;
+    var next=current+1;
+    if(event.keyCode!=8){
+        if(next==5){
+            var password1=$('#pin1').val();
+        var password2=$('#pin2').val();
+        var password3=$('#pin3').val();
+        var password4=$('#pin4').val();
+
+        if(password1!=""&& password2!="" && password3!="" &&password4!=""){
+            setTimeout(function(){
+            $(".Confirm_Pin").removeClass('hidden');
+            $(".First_Try").addClass('hidden');
+            $('.spi').toggleClass('hidden');
+            }, 5000)
+        }else{
+            alert('Error');
+        }
+        $('.spi').html("<span class='fa fa-spinner fa-spin' style='font-size: 40pt; color: white'></span>");
+
+        }else if(next==9){
+            var password5=$('#pin5').val();
+            var password6=$('#pin6').val();
+            var password7=$('#pin7').val();
+            var password8=$('#pin8').val();
+        
+        if(password5!=""&& password6!="" && password7!="" &&password8!=""){
+                setTimeout(function(){
+                alert("You PIN has been set successfully")
+                location.reload();
+
+                 }, 5000)
+        }else{
+            alert('Error');
+        }
+  
+                $('.spi').toggleClass('hidden');
+                $('.spi').html("<span class='fa fa-spinner fa-spin' style='font-size: 40pt; color: white'></span>");
+
+ 
+        }else{
+                 $('#pin'+next).prop('disabled',false).focus();
+
+        }
+    }else{
+
+
+    }
+})
+
+    for(var i=1; i<10; i++){
+       $('.keypads').append("<li class='singlekey' style='color: white' id='"+i+"'><span>"+i+"</span></li>");
+    }
+
+
+$(document).on('click', '.singlekey', function(){
+current++;
+ var next=current+1;
+var number=$(this).attr('id');
+
+if($('#pin1').val().trim()==""){
+$('#pin1').val(number);
+$('#pin'+next).prop('disabled',false).focus();
+}else if($('#pin2').val().trim()==""){
+$('#pin2').val(number);
+$('#pin'+next).prop('disabled',false).focus();
+
+}else if($('#pin3').val().trim()==""){
+$('#pin3').val(number);
+$('#pin'+next).prop('disabled',false).focus();
+}else if($('#pin4').val().trim()==""){
+$('#pin4').val(number);
+$('#pin'+next).prop('disabled',false).focus();
+}
+
+})
+
+
+</script>
