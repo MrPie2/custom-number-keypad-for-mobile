@@ -60,6 +60,23 @@ $('.pin').keyup(function(){
     }
 })
 
+
+let numbers = [];
+
+// Generate array from 0 to 10 using a for loop
+for (let i = 0; i <= 10; i++) {
+  numbers.push(i);
+}
+
+// Sort to place 0 after 9
+numbers.sort(function(a, b) {
+  if (a === 0) return 1;   // Place 0 after other numbers
+  if (b === 0) return -1;  // Place other numbers before 0
+  return a - b;            // Sort the rest in ascending order
+});
+
+console.log(numbers); // Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0]
+
     for(var i=1; i<10; i++){
        $('.keypads').append("<li class='singlekey' style='color: white' id='"+i+"'><span>"+i+"</span></li>");
     }
